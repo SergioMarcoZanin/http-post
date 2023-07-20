@@ -1,0 +1,13 @@
+<div class="container">
+    <div *ngFor="let post of posts" class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{post.id}}</h4>
+        <h4 class="card-title">{{post.user_id}}</h4>
+        <h4 class="card-title">{{post.title}}</h4>
+        <h4 class="card-title">{{post.body}}</h4>
+        
+        <!-- <button type="button" class="btn btn-primary" (click)="deleteUser(user.id)">DELETE</button>
+        <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal" (click)="openpopup(user.id)">CHANGE</button> -->
+      </div>
+    </div>
+</div>
