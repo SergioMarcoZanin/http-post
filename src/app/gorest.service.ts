@@ -5,19 +5,28 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GorestService {
+export class GorestService{
   
   constructor(private http: HttpClient) { }
 
-  post(data: any): Observable<any> {
-    return this.http.post<any>(`
-    https://gorest.co.in/public/v2/users/2185/posts?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3`, data);
+  post( data:any): Observable<any> {
+    return this.http.post<any>('https://gorest.co.in/public/v2/users/2195/posts?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3', data);
   }
 
-  
+  postComment(id:any, data: any): Observable<any> {
+    return this.http.post<any>('https://gorest.co.in/public/v2/posts/'+ id +'/comments?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3', data);
+   }
+
   get(): Observable<any> {
-    return this.http.get<any>(`https://gorest.co.in/public/v2/posts?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3`);
+    return this.http.get<any>('https://gorest.co.in/public/v2/posts?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3');
   }
 
+  getPostComment(id:number): Observable<any> {
+    return this.http.get<any>('https://gorest.co.in/public/v2/posts/'+id+'/comments?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3');
 
+    }
+  
+  delete(id:number): Observable<any> {
+    return this.http.delete<any>('https://gorest.co.in/public/v2/posts/'+ id +'/?access-token=a85dd02584b2e8336b3bfbbab6f798aea6e774b953d5a69077cdca5d3c4fdec3');
+    }
 }

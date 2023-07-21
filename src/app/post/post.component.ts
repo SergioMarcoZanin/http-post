@@ -22,13 +22,28 @@ export class PostComponent implements OnInit {
     "title":"",
     "body":""
   }
+
+  comments: Comment[] = [{
+    "id":0,
+    "post_id":0,
+    "name":"",
+    "email":"",
+    "body":""
+  }]
+  comment: Comment = {
+    "id":0,
+    "post_id":0,
+    "name":"",
+    "email":"",
+    "body":""
+  }
+
   homepageform!: FormGroup;
 
   constructor(private gorest: GorestService){}
 
   ngOnInit(): void {
   this.homepageform = new FormGroup ({
-    user_id: new FormControl('', Validators.required),
     title: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
   })
@@ -41,12 +56,35 @@ export class PostComponent implements OnInit {
       console.log(data);
     });
 }
+  getPostComments(id:number){
+      this.gorest.getPostComment(id).subscribe((data: any) => {
+      this.comments = data.filter((comment: Comment) => comment.post_id == id);
+      console.log(this.comments);
+    });
+  }
+  deletePost(id:number){
+      this.gorest.delete(id).subscribe((data: any) => {
+      this.post = data
+      console.log(data)
+      this.getPosts()
+      }, (error) => {console.log(error)})
 }
-
+  gotoComment(id:number){
+    localStorage.setItem('post_id', id.toString());
+  }
+}
 interface Post {
   id:number;
   user_id:number;
   title:string;
+  body:string;
+}
+
+interface Comment {
+  id:number;
+  post_id:number;
+  name:string;
+  email:string;
   body:string;
 }
 
